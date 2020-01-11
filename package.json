@@ -39,19 +39,30 @@
     "lint": "ng lint"
   },
   "devDependencies": {
+    "@angular/animations": "~8.2.14",
+    "@angular/cdk": "^8.2.3",
+    "@angular/common": "8.2.14",
+    "@angular/compiler": "8.2.14",
+    "@angular/core": "8.2.14",
+    "@angular/flex-layout": "^8.0.0-beta.27",
+    "@angular/forms": "8.2.14",
+    "@angular/material": "^8.2.3",
+    "@angular/platform-browser": "8.2.14",
+    "@angular/platform-browser-dynamic": "8.2.14",
+    "@angular/router": "8.2.14",
+    "ag-grid-angular": "^22.1.1",
+    "ag-grid-community": "^22.1.1",
+    "ag-grid-enterprise": "^22.1.1",
+    "hammerjs": "^2.0.8",
+    "rxjs": "6.5.3",
+    "tslib": "^1.10.0",
+    "zone.js": "0.9.1",
     "@angular-builders/custom-webpack": "8.2.0",
     "@angular-devkit/build-angular": "0.803.21",
     "@angular-eslint/builder": "0.0.1-alpha.17",
     "@angular/cli": "8.3.21",
-    "@angular/common": "8.2.14",
-    "@angular/compiler": "8.2.14",
     "@angular/compiler-cli": "8.2.14",
-    "@angular/core": "8.2.14",
-    "@angular/forms": "8.2.14",
     "@angular/language-service": "8.2.14",
-    "@angular/platform-browser": "8.2.14",
-    "@angular/platform-browser-dynamic": "8.2.14",
-    "@angular/router": "8.2.14",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
     "@types/jasmine": "3.3.16",
@@ -78,15 +89,20 @@
     "karma-jasmine-html-reporter": "1.4.2",
     "mocha": "6.2.2",
     "npm-run-all": "4.1.5",
-    "rxjs": "6.5.3",
     "spectron": "9.0.0",
     "ts-node": "8.3.0",
     "typescript": "3.5.3",
     "wait-on": "3.3.0",
-    "webdriver-manager": "12.1.7",
-    "zone.js": "0.9.1"
+    "webdriver-manager": "12.1.7"
   },
   "engines": {
     "node": ">=10.9.0"
+  },
+  "dependencies": {
+    "@angular/animations": "^8.0.0 || ^9.0.0-0",
+    "@angular/cdk": "~8.2.3",
+    "@angular/forms": "^8.0.0 || ^9.0.0-0",
+    "@angular/material": "8.2.3",
+    "hammerjs": "^2.0.8"
   }
 }
