@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import FakeData                                       from '../../fake/data';
-import { ColumnApi, GridApi }                         from 'ag-grid-community';
+import { Component, OnInit, Input } from '@angular/core';
+import FakeData                     from '../../fake/data';
+import { ColumnApi, GridApi }       from 'ag-grid-community';
+import { Observable }               from 'rxjs';
 
 @Component( {
   selector : 'app-search-grid',
   template : `
-<!--    <button (click)="getSelectedRows()">toto</button>-->
+    <!--    <button (click)="getSelectedRows()">toto</button>-->
     <ag-grid-angular #agGrid
                      style="width:100%; height: 80vh"
                      class="ag-theme-material"
@@ -13,7 +14,7 @@ import { ColumnApi, GridApi }                         from 'ag-grid-community';
                      [defaultColDef]="defaultColDef"
                      [columnDefs]="columnDef"
 
-                     [rowData]="rowData"
+                     [rowData]="data | async"
 
                      (gridReady)="onGridReady($event)"
 
@@ -26,13 +27,14 @@ import { ColumnApi, GridApi }                         from 'ag-grid-community';
     >
     </ag-grid-angular>
   `,
-  styles : [],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styles : []
+  // changeDetection : ChangeDetectionStrategy.OnPush
 } )
 export class SearchGridComponent implements OnInit {
 
   public api: GridApi;
   public columnApi: ColumnApi;
+  @Input() data: Observable<any []>;
 
   public defaultColDef = {
     resizable : true,
@@ -51,7 +53,7 @@ export class SearchGridComponent implements OnInit {
       sortable : true,
       pinned : true
     }, {
-      field : 'name',
+      field : 'titre',
       width : 200,
       filter : true,
       sortable : true
@@ -114,7 +116,7 @@ const buildFakeData = () => {
     rowData.push( {
       id : i,
       author : FakeData.firstNames[ i % FakeData.firstNames.length ] + ' ' + FakeData.lastNames[ i % FakeData.lastNames.length ],
-      name : FakeData.addresses[ i % FakeData.addresses.length ],
+      titre : FakeData.addresses[ i % FakeData.addresses.length ],
       date : FakeData.DOBs[ i % FakeData.DOBs.length ],
       version : `v${ version[ i % version.length ] }.${ version[ i % version.length ] }`,
       type : type[ i % type.length ],

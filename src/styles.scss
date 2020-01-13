@@ -3,9 +3,10 @@ $ag-odd-row-background-color: #CFD8DC;
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-material.css";
+@import '~material-design-icons/iconfont/material-icons.css';
 html, body {
   margin: 0;
   padding: 0;
-
+  background: white;
   height: 100%;
 }
