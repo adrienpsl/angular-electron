@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule }                                     
 import { SearchGridComponent }                                                                                     from './components/search-grid/search-grid.component';
 import { AgGridModule }                                                                                            from 'ag-grid-angular';
 import { FlexLayoutModule }                                                                                        from '@angular/flex-layout';
+import { MatCardModule }                                                                                           from '@angular/material/card';
+import { DisplayResultComponent } from './components/display-result/display-result.component';
 
 const container = [
   SearchContainerComponent
@@ -20,7 +22,8 @@ const components = [
   declarations : [
     ... container,
     ... components,
-    SearchGridComponent
+    SearchGridComponent,
+    DisplayResultComponent
 
   ],
   imports : [
@@ -30,7 +33,7 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
 
-   // fxLayout
+    // fxLayout
     FlexLayoutModule,
 
     // Material theme
@@ -40,7 +43,8 @@ const components = [
     MatIconModule,
     MatTabsModule,
     MatInputModule,
-    AgGridModule
+    AgGridModule,
+    MatCardModule
   ]
 } )
 export class SearchModule {}

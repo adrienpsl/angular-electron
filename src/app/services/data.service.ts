@@ -19,11 +19,12 @@ export class DataService {
                .get( `http://localhost:3000/search/${ keywords }` )
                .pipe( map( ( results: any[] ) =>
                    results.map( ( element ) => {
-                       const { info, ... rest } = element;
+                     console.log(element)
+                       const { item, ... rest } = element;
                        const res = {
-                         ... info,
+                         ... item,
                          ... rest,
-                         date : moment( info.date )
+                         date : item.date ? moment( item.date ) : moment(item.date_modif)
                        };
                        return ( res );
                      }
