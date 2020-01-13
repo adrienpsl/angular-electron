@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map }        from 'rxjs/operators';
 import { of }         from 'rxjs';
+import * as moment    from 'moment';
 
 @Injectable( {
   providedIn : 'root'
@@ -21,7 +22,8 @@ export class DataService {
                        const { info, ... rest } = element;
                        const res = {
                          ... info,
-                         ... rest
+                         ... rest,
+                         date : moment( info.date )
                        };
                        return ( res );
                      }

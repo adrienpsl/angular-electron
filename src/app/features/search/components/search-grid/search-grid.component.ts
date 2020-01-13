@@ -13,7 +13,6 @@ import { Observable }               from 'rxjs';
 
                      [defaultColDef]="defaultColDef"
                      [columnDefs]="columnDef"
-
                      [rowData]="data | async"
 
                      (gridReady)="onGridReady($event)"
