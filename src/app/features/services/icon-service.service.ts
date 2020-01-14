@@ -3,8 +3,8 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 export enum Icons {
-  Word  = 'word',
-  Excel = 'excel',
+  Word  = 'doc',
+  Excel = 'xls',
   Ppt   = 'ppt'
 }
 

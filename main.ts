@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import session = Electron.session;
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -37,7 +38,7 @@ function createWindow(): BrowserWindow {
   }
 
   if (serve) {
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
@@ -47,6 +48,14 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  // session.defaultSession.webRequest.onBeforeRequest({urls}, (details, callback) => {
+  //   if (details.url.indexOf('7accc8730b0f99b5e7c0702ea89d1fa7c17bfe33') !== -1) {
+  //     callback({redirectURL: details.url.replace('7accc8730b0f99b5e7c0702ea89d1fa7c17bfe33', '57c9d07b416b5a2ea23d28247300e4af36329bdc')});
+  //   } else {
+  //     callback({cancel: false});
+  //   }
+  // });
 
   return win;
 }
