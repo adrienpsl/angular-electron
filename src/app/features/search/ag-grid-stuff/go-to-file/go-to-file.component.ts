@@ -18,6 +18,7 @@ export class GoToFileComponent {
   }
 
   open() {
-    console.log(this.value)
+    const { shell } = require( 'electron' ); // deconstructing assignment
+    shell.showItemInFolder( this.value );
   }
 }
