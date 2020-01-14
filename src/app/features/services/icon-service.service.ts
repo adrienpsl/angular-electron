@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable }      from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer }    from '@angular/platform-browser';
 
 export enum Icons {
   Word  = 'doc',
@@ -8,9 +8,9 @@ export enum Icons {
   Ppt   = 'ppt'
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable( {
+  providedIn : 'root'
+} )
 export class IconServiceService {
 
   constructor(
@@ -19,12 +19,14 @@ export class IconServiceService {
   ) { }
 
   public registerIcons(): void {
-    this.loadIcons(Object.values(Icons), 'assets/');
+    this.loadIcons( Object.values( Icons ), './assets/' );
   }
 
-  private loadIcons(iconKeys: string[], iconUrl: string): void {
-    iconKeys.forEach(key => {
-      this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(`${iconUrl}/${key}.svg`));
-    });
+  private loadIcons( iconKeys: string[], iconUrl: string ): void {
+    iconKeys.forEach( key => {
+      this.matIconRegistry.addSvgIcon( key,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          `${ iconUrl }/${ key }.svg` ) );
+    } );
   }
 }

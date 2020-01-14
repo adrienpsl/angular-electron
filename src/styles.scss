@@ -1,12 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
 $ag-odd-row-background-color: #CFD8DC;
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-material.css";
-@import '~material-design-icons/iconfont/material-icons.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import 'styles-variables';
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import 'styles-reset';
+
+@import '~@angular/material/theming';
+//@import "themes/black-theme";
+//@import "themes/default-theme";
+//@import "themes/light-theme";
+//@import "themes/nature-theme";
+
+@include mat-core();
+
+
 html, body {
+  height: 100vh;
+}
+
+body {
   margin: 0;
-  padding: 0;
-  background: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+//.default-theme {
+//  @include angular-material-theme($anms-theme);
+//  //@include custom-components-theme($anms-theme);
+//}
+//
+//.light-theme {
+//  @include angular-material-theme($anms-light-theme);
+//  //@include custom-components-theme($anms-light-theme);
+//}
+//
+//.black-theme {
+//  @include angular-material-theme($anms-black-theme);
+//  //@include custom-components-theme($anms-black-theme);
+//}
+//
+//.nature-theme {
+//  @include angular-material-theme($anms-nature-theme);
+//  //@include custom-components-theme($anms-nature-theme);
+//}
+
+
+.ag-header-cell {
+  border-width: 1px !important;
+}
+
+.marine {
   height: 100%;
+
+  .data-container {
+    background: linear-gradient(#2929B2 15%, #4D4DF4 30%);
+    height: 100%;
+
+    .ag-row-selected {
+      background-color: #E1E1FF;
+    }
+  }
+}
+
+mat-card {
+  background-color: white;
 }

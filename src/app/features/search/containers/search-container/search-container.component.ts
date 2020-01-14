@@ -7,7 +7,7 @@ import { DataService }                                from '../../../services/da
   selector : 'app-search-container',
   template : `
 
-    <mat-tab-group selectedIndex="2" mat-stretch-tabs>
+    <mat-tab-group selectedIndex="0" mat-stretch-tabs>
       <mat-tab label="Recherche">
         <div class="data-container">
           <div fxFlex="90" style="margin: 40px auto; padding: 0">
