@@ -2,7 +2,7 @@ import { Component, OnInit }  from '@angular/core';
 import { ElectronService }    from './core/services';
 import { TranslateService }   from '@ngx-translate/core';
 import { AppConfig }          from '../environments/environment';
-import { IconServiceService } from './services/icon-service.service';
+import { IconServiceService } from './features/services/icon-service.service';
 
 @Component( {
   selector : 'app-root',
