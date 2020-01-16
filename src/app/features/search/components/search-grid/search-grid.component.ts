@@ -28,7 +28,10 @@ import { DataService }                 from '../../../services/data.service';
         [defaultColDef]="defaultColDef"
         [frameworkComponents]="frameworkComponent"
         [columnDefs]="columnDef"
-        [rowData]="data | async"
+        [rowData]="dataService.gridData | async"
+
+        [overlayLoadingTemplate]="loadingTemplate"
+        [overlayNoRowsTemplate]="noRowsTemplate"
 
         (gridReady)="onGridReady($event)"
         (rowSelected)="rowSelect($event)"
@@ -54,10 +57,11 @@ import { DataService }                 from '../../../services/data.service';
 } )
 export class SearchGridComponent implements OnInit {
 
+  loadingTemplate = `Chargement ...`;
+  noRowsTemplate = `Pas de résultat à afficher`;
+
   public api: GridApi;
   public columnApi: ColumnApi;
-  @Input() data: Observable<any []>;
-  @Input() selectedResource: BehaviorSubject<any[]>;
 
   frameworkComponent = {
     matIcon : MatIconGridComponent,
@@ -103,7 +107,7 @@ export class SearchGridComponent implements OnInit {
       cellRendererFramework : MatIconGridComponent,
       sortable : false
     }, {
-      headerName : 'réseau',
+      headerName : 'Réseau',
       field : 'network',
       width : 100
     }, {
@@ -132,7 +136,7 @@ export class SearchGridComponent implements OnInit {
 
   public getSelectedRows() {
     const rowsSelection = this.api.getSelectedRows();
-    this.selectedResource.next( rowsSelection );
+    this.dataService.selectedResource.next( rowsSelection );
   }
 
   rowSelect( event: any ) {
@@ -140,7 +144,7 @@ export class SearchGridComponent implements OnInit {
   }
 }
 
-const buildFakeData = () => {
+export const buildFakeData = () => {
   const rowData = [];
   const version = [ 0, 1, 2, 3, 4, 5 ];
   const type = [ 'pdf', 'doc', 'ppt', 'xls' ];
@@ -158,7 +162,7 @@ const buildFakeData = () => {
   return rowData;
 };
 
-function percentCellRenderer( params ) {
+export function percentCellRenderer( params ) {
   let value = ( 1 - params.value ) * 100;
   value = Math.round( value );
 
@@ -188,7 +192,7 @@ function percentCellRenderer( params ) {
   return eOuterDiv;
 }
 
-function dateRender( param ) {
+export function dateRender( param ) {
   const eDivPercentBar = document.createElement( 'div' );
   eDivPercentBar.innerText = param.value.format( 'DD / MM / YYYY' );
   return eDivPercentBar;

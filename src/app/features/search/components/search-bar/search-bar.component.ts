@@ -1,12 +1,8 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Output,
-  EventEmitter
-}                         from '@angular/core';
-import { Observable }     from 'rxjs';
-import { FormControl }    from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Observable }                                               from 'rxjs';
+import { FormControl }                                              from '@angular/forms';
+import { map, startWith }                                           from 'rxjs/operators';
+import { DataService }                                              from '../../../services/data.service';
 
 @Component( {
   selector : 'app-search-bar',
@@ -15,8 +11,8 @@ import { map, startWith } from 'rxjs/operators';
           [style.fontSize.px]="'30'">
 
       <mat-form-field class="example-full-width">
-
-        <input matInput placeholder="Key words..." aria-label="State"
+        <mat-icon style="font-size: 30px; margin-right: 20px" matPrefix color="primary">search</mat-icon>
+        <input matInput placeholder="Mots-clés" aria-label="State"
                [matAutocomplete]="auto" [formControl]="inputCtrl">
 
         <mat-autocomplete #auto="matAutocomplete" (closed)="add(undefined)">
@@ -33,7 +29,7 @@ import { map, startWith } from 'rxjs/operators';
 
     <mat-chip-list #chipList aria-label="Fruit selection">
       <mat-chip
-        *ngFor="let tag of tags"
+        *ngFor="let tag of dataService.keywork"
         (removed)="remove(tag)">
         {{tag}}
         <mat-icon matChipRemove>cancel</mat-icon>
@@ -46,16 +42,14 @@ import { map, startWith } from 'rxjs/operators';
       width: 100%;
     }
   ` ],
-  changeDetection : ChangeDetectionStrategy.OnPush
 } )
 export class SearchBarComponent {
   @Output() word = new EventEmitter<string[]>();
-  fakeTags: string[] = [ 'Afrique', 'Baracuda', 'scorpion', 'asie', 'Strawberry' ];
+  fakeTags: string[] = [];
   inputCtrl = new FormControl();
   filteredTags: Observable<string[]>;
-  tags: string[] = [];
 
-  constructor() {
+  constructor( public dataService: DataService ) {
     this.filteredTags = this.inputCtrl.valueChanges.pipe(
       startWith( null ),
       map( ( fruit: string | null ) => fruit ? this._filter(
@@ -68,20 +62,20 @@ export class SearchBarComponent {
     }
 
     if ( event === undefined ) {
-      this.tags.push( this.inputCtrl.value );
+      this.dataService.keywork.push( this.inputCtrl.value );
     } else {
-      this.tags.push( event );
+      this.dataService.keywork.push( event );
     }
 
-    this.word.emit( this.tags );
+    this.dataService.getData(this.dataService.keywork)
     this.inputCtrl.setValue( null );
   }
 
   remove( fruit: string ): void {
-    const index = this.tags.indexOf( fruit );
+    const index = this.dataService.keywork.indexOf( fruit );
     if ( index >= 0 ) {
-      this.tags.splice( index, 1 );
-      this.word.emit(this.tags)
+      this.dataService.keywork.splice( index, 1 );
+      this.word.emit( this.dataService.keywork );
     }
   }
 

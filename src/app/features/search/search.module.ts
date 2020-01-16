@@ -11,8 +11,8 @@ import {
   MatInputModule,
   MatCheckboxModule,
   MatButtonModule,
-  MatProgressSpinnerModule
-}                                           from '@angular/material';
+  MatProgressSpinnerModule, MatSnackBarModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchGridComponent }              from './components/search-grid/search-grid.component';
 import { AgGridModule }                     from 'ag-grid-angular';
@@ -24,6 +24,7 @@ import { TypeFilterComponent }              from './ag-grid-stuff/type-filter/ty
 import { MatIconGridComponent }             from './ag-grid-stuff/mat-icon-grid/mat-icon-grid.component';
 import { GoToFileComponent }                from './ag-grid-stuff/go-to-file/go-to-file.component';
 import { ImportationComponent } from './components/importation/importation.component';
+import { NplDisplayResultComponent } from '../npl/display-result/display-result.component';
 
 const container = [
   SearchContainerComponent
@@ -43,10 +44,12 @@ const components = [
     TypeFilterComponent,
     AgMatSelectComponent,
     GoToFileComponent,
-    ImportationComponent
+    ImportationComponent,
+    NplDisplayResultComponent,
   ],
-  exports : [
-    SearchContainerComponent
+  exports: [
+    SearchContainerComponent,
+    SearchBarComponent
   ],
   entryComponents : [ MatIconGridComponent, TypeFilterComponent, AgMatSelectComponent, GoToFileComponent ],
   imports : [
@@ -71,7 +74,8 @@ const components = [
     AgGridModule,
     MatCardModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ]
 } )
 export class SearchModule {}

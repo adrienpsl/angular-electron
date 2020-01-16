@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable }               from 'rxjs';
-import { tap }                      from 'rxjs/operators';
-import { GoToFileComponent }        from '../../ag-grid-stuff/go-to-file/go-to-file.component';
+import { Component, OnInit }               from '@angular/core';
+import { tap }                             from 'rxjs/operators';
+import { GoToFileComponent }               from '../../ag-grid-stuff/go-to-file/go-to-file.component';
+import { percentCellRenderer, dateRender } from '../search-grid/search-grid.component';
+import { TypeFilterComponent }             from '../../ag-grid-stuff/type-filter/type-filter.component';
+import { MatIconGridComponent }            from '../../ag-grid-stuff/mat-icon-grid/mat-icon-grid.component';
+import { fadeInUpOnEnterAnimation }        from 'angular-animations';
+import { DataService }                     from '../../../services/data.service';
 
 export const Network = {
   intradef : 'intradef',
@@ -11,9 +15,13 @@ export const Network = {
 
 @Component( {
   selector : 'app-display-result',
+  animations : [
+    fadeInUpOnEnterAnimation( { anchor : 'enter' } ),
+    fadeInUpOnEnterAnimation( { anchor : 'enter-delay', delay : 100 } )
+  ],
   template : `
 
-    <mat-card>
+    <mat-card @enter>
       <div fxLayout fxLayoutAlign="space-between">
         <h2>{{ network.intradef | titlecase }}</h2>
         <button color="warn" mat-button (click)="mailTo(network.intradef)">Exporter</button>
@@ -27,7 +35,7 @@ export const Network = {
       ></ag-grid-angular>
     </mat-card>
 
-    <mat-card class="margin-top">
+    <mat-card class="margin-top" @enter-delay>
       <div fxLayout fxLayoutAlign="space-between">
         <h2>{{ network.intraced | titlecase }}</h2>
         <button color="warn" mat-button (click)="mailTo(network.intraced)">Exporter</button>
@@ -43,7 +51,7 @@ export const Network = {
 
     <mat-card class="margin-top">
       <div fxLayout fxLayoutAlign="space-between">
-        <h2>{{ network.frops| titlecase }}</h2>
+        <h2>FrOps</h2>
         <button color="warn" mat-button (click)="mailTo(network.frops)">Exporter</button>
       </div>
       <ag-grid-angular
@@ -65,7 +73,6 @@ export const Network = {
 } )
 export class DisplayResultComponent implements OnInit {
   network = Network;
-  @Input() selectedElements: Observable<any[]>;
   state = {
     intradef : [],
     frops : [],
@@ -79,17 +86,35 @@ export class DisplayResultComponent implements OnInit {
   };
   columnDef = [
     {
+      field : 'score',
+      width : 100,
+      cellRenderer : percentCellRenderer
+    }, {
       field : 'titre',
-      width : '800'
-    },
-    {
+      width : '400'
+    }, {
+      field : 'type',
+      menuTabs : [ 'filterMenuTab' ],
+      width : 150,
+      filterFramework : TypeFilterComponent,
+      cellRendererFramework : MatIconGridComponent,
+      sortable : false
+    }, {
+      field : 'date',
+      width : 200,
+      cellRenderer : dateRender
+    }, {
       headerName : 'Afficher',
+      width : 300,
       field : 'filepath',
       cellRendererFramework : GoToFileComponent
+    }, {
+      field : 'auteur',
+      width : 200
     }
   ];
 
-  constructor() { }
+  constructor( private dataService: DataService ) { }
 
   resetState() {
     this.state = {
@@ -102,19 +127,19 @@ export class DisplayResultComponent implements OnInit {
 
   ngOnInit() {
 
-    const selectNetwork = () => this.selectedElements.pipe(
+    const selectNetwork = () => this.dataService.selectedResource.pipe(
       tap( ( data ) => {
-        console.log( data );
         this.resetState();
 
-        data.map( ( { titre, filepath, network } ) => {
+        data.map( ( el ) => {
+          let { network } = el;
           network = network.toLowerCase();
           if ( network.localeCompare( this.network.intradef ) === 0 ) {
-            this.state.intradef.push( { titre, filepath } );
+            this.state.intradef.push( el );
           } else if ( network.localeCompare( this.network.intraced ) === 0 ) {
-            this.state.intraced.push( { titre, filepath } );
+            this.state.intraced.push( el );
           } else if ( network.localeCompare( this.network.frops ) === 0 ) {
-            this.state.frops.push( { titre, filepath } );
+            this.state.frops.push( el );
           }
         } );
       } )
@@ -125,6 +150,7 @@ export class DisplayResultComponent implements OnInit {
   }
 
   mailTo( network: string ) {
-    window.open( `mailto:yeah@cool.com?subject=${ network }&body=${ JSON.stringify( this.state[ network ] ) }` );
+    window.open( `mailto:yeah@cool.com?subject=${ network }&body=${ JSON.stringify(
+      { files : this.state[ network ], search : this.dataService.keywork } ) }` );
   }
 }
