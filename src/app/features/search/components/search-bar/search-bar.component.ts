@@ -15,8 +15,8 @@ import { map, startWith } from 'rxjs/operators';
           [style.fontSize.px]="'30'">
 
       <mat-form-field class="example-full-width">
-
-        <input matInput placeholder="Key words..." aria-label="State"
+        <mat-icon style="font-size: 30px; margin-right: 20px" matPrefix color="primary">search</mat-icon>
+        <input matInput placeholder="Mots-clés" aria-label="State"
                [matAutocomplete]="auto" [formControl]="inputCtrl">
 
         <mat-autocomplete #auto="matAutocomplete" (closed)="add(undefined)">

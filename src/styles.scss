@@ -1,12 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
 $ag-odd-row-background-color: #CFD8DC;
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-material.css";
-@import '~material-design-icons/iconfont/material-icons.css';
+
+@import 'styles-variables';
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import 'styles-reset';
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+
 html, body {
+  min-height: 100vh;
+  background: linear-gradient(#2929B2 15%, #4D4DF4 30%);
+}
+
+body {
   margin: 0;
-  padding: 0;
-  background: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+.ag-header-cell {
+  border-width: 1px !important;
+}
+
+.marine {
   height: 100%;
+
+  .data-container {
+
+    .ag-row-selected {
+      background-color: #E1E1FF;
+    }
+  }
+}
+
+.mat-tab-header {
+  background: white!important;
+  border-top: #f1f1f1 2px solid;
 }

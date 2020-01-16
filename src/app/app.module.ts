@@ -20,6 +20,7 @@ import { AppComponent }            from './app.component';
 import { MatToolbarModule }        from '@angular/material/toolbar';
 import { SearchModule }            from './features/search/search.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule }        from '@angular/flex-layout';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -47,7 +48,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
     // Features
     SearchModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
